@@ -8,7 +8,6 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from "react-native";
 
 export default function Index() {
@@ -106,6 +105,19 @@ export default function Index() {
           >
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
+
+          {/* Forgot Password */}
+          <TouchableOpacity style={styles.forgotButton}>
+            <Text style={styles.forgotText}>Lupa Password?</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Register prompt */}
+        <View style={styles.registerRow}>
+          <Text style={styles.registerText}>Belum punya akun? </Text>
+          <TouchableOpacity>
+            <Text style={styles.registerLink}>Daftar</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -198,5 +210,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     letterSpacing: 0.5,
+  },
+  forgotButton: {
+    alignItems: "center",
+    marginTop: 16,
+  },
+  forgotText: {
+    color: "#1a6ef5",
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  registerRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 24,
+  },
+  registerText: {
+    fontSize: 13,
+    color: "#888",
+  },
+  registerLink: {
+    fontSize: 13,
+    color: "#1a6ef5",
+    fontWeight: "700",
   },
 });
