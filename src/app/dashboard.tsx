@@ -128,7 +128,13 @@ export default function Dashboard() {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
-          <Link href="./dashboard" asChild>
+          <Link
+            href={{
+              pathname: "./dashboard",
+              params: { username: username || "" },
+            }}
+            asChild
+          >
             <Text style={styles.navIcon}>🏠</Text>
           </Link>
           <Text style={styles.navLabelActive}>Home</Text>
@@ -146,8 +152,8 @@ export default function Dashboard() {
           <Text style={styles.navLabelActive}>Pengumuman</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
-          <Link href='./form' asChild>
-          <Text style={styles.navIcon}>👤</Text>
+          <Link href="./form" asChild>
+            <Text style={styles.navIcon}>👤</Text>
           </Link>
           <Text style={styles.navLabelActive}>Profile</Text>
         </TouchableOpacity>
