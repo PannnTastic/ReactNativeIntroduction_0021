@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -128,17 +128,28 @@ export default function Dashboard() {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>🏠</Text>
+          <Link href="./dashboard" asChild>
+            <Text style={styles.navIcon}>🏠</Text>
+          </Link>
           <Text style={styles.navLabelActive}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>🎟️</Text>
+          <Link href="./abra" asChild>
+            <Text style={styles.navIcon}>🎟️</Text>
+          </Link>
+          <Text style={styles.navLabelActive}>Tiket</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>🔔</Text>
+          <Link href="./contoh" asChild>
+            <Text style={styles.navIcon}>🔔</Text>
+          </Link>
+          <Text style={styles.navLabelActive}>Pengumuman</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
+          <Link href='./form' asChild>
           <Text style={styles.navIcon}>👤</Text>
+          </Link>
+          <Text style={styles.navLabelActive}>Profile</Text>
         </TouchableOpacity>
       </View>
     </View>
