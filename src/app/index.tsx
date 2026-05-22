@@ -17,6 +17,7 @@ export default function Index() {
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
     let valid = true;
@@ -73,17 +74,26 @@ export default function Index() {
 
           {/* Password Field */}
           <Text style={[styles.label, { marginTop: 16 }]}>Password</Text>
-          <TextInput
-            style={[
-              styles.textInput,
-              passwordError ? styles.textInputError : null,
-            ]}
-            placeholder="Masukkan password"
-            placeholderTextColor="#aaa"
-            value={password}
-            onChangeText={(v) => { setPassword(v); setPasswordError(""); }}
-            secureTextEntry
-          />
+          <View style={styles.passwordRow}>
+            <TextInput
+              style={[
+                styles.textInput,
+                styles.passwordInput,
+                passwordError ? styles.textInputError : null,
+              ]}
+              placeholder="Masukkan password"
+              placeholderTextColor="#aaa"
+              value={password}
+              onChangeText={(v) => { setPassword(v); setPasswordError(""); }}
+              secureTextEntry={!showPassword}
+            />
+            <TouchableOpacity
+              style={styles.eyeButton}
+              onPress={() => setShowPassword((prev) => !prev)}
+            >
+              <Text style={styles.eyeIcon}>{showPassword ? "🙈" : "👁"}</Text>
+            </TouchableOpacity>
+          </View>
           {passwordError ? (
             <Text style={styles.errorText}>{passwordError}</Text>
           ) : null}
@@ -156,6 +166,20 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: "#e53935",
     marginTop: 4,
+  },
+  passwordRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  passwordInput: {
+    flex: 1,
+  },
+  eyeButton: {
+    paddingLeft: 10,
+    paddingBottom: 4,
+  },
+  eyeIcon: {
+    fontSize: 18,
   },
   loginButton: {
     backgroundColor: "#1a6ef5",
