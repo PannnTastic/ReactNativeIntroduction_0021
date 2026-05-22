@@ -16,6 +16,11 @@ export default function Dashboard() {
   const router = useRouter();
   const [selectedTrip, setSelectedTrip] = useState<TripType>("Round Trip");
 
+  // Capitalize first letter, fallback to Guest
+  const displayName = username
+    ? username.charAt(0).toUpperCase() + username.slice(1)
+    : "Guest";
+
   const tripTypes: TripType[] = ["Round Trip", "One way", "Multi city"];
 
   return (
@@ -24,7 +29,7 @@ export default function Dashboard() {
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <View style={styles.greetingBlock}>
-            <Text style={styles.greetingText}>Hello {username},</Text>
+            <Text style={styles.greetingText}>Hello {displayName},</Text>
             <Text style={styles.headerTitle}>Book your next Flight</Text>
           </View>
           <Image
