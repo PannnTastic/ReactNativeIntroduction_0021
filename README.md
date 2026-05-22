@@ -1,5 +1,37 @@
 # Welcome to your Expo app 👋
 
+## 🔐 Branch: LoginForm
+
+Branch ini mengimplementasikan alur **Login Form → Dashboard** dengan fitur:
+
+### Fitur
+- **Login Form** (`index.tsx`):
+  - Header "Selamat Datang" dengan subtitle
+  - Input Username / Email
+  - Input Password dengan toggle show/hide
+  - Validasi form (username wajib, password min 4 karakter)
+  - Tombol Login navigasi ke Dashboard
+- **Dashboard** (`dashboard.tsx`):
+  - Greeting dinamis: `Hello {username},` — username diparsing dari Login Form via `expo-router` params
+  - Header biru dengan selector trip (Round Trip / One way / Multi city)
+  - Form pencarian penerbangan (From, To, Departure, Return)
+  - Tombol "Search flights"
+  - Seksi "Popular place" dengan gambar Tower Bridge London
+  - Bottom navigation bar
+
+### Alur Data
+```
+Login Form (index.tsx)
+  → user mengisi username
+  → tekan Login
+  → router.push({ pathname: './dashboard', params: { username } })
+  → Dashboard (dashboard.tsx)
+  → const { username } = useLocalSearchParams()
+  → ditampilkan sebagai "Hello {username},"
+```
+
+
+
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
