@@ -8,20 +8,35 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 
 export default function Index() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleLogin = () => {
-    if (username.trim()) {
-      router.push({
-        pathname: "./dashboard",
-        params: { username: username.trim() },
-      });
+    let valid = true;
+    setUsernameError("");
+    setPasswordError("");
+
+    if (!username.trim()) {
+      setUsernameError("Username / Email tidak boleh kosong");
+      valid = false;
     }
+    if (password.length < 4) {
+      setPasswordError("Password minimal 4 karakter");
+      valid = false;
+    }
+    if (!valid) return;
+
+    router.push({
+      pathname: "./dashboard",
+      params: { username: username.trim() },
+    });
   };
 
   return (
@@ -41,25 +56,37 @@ export default function Index() {
           {/* Username Field */}
           <Text style={styles.label}>Username / Email</Text>
           <TextInput
-            style={styles.textInput}
+            style={[
+              styles.textInput,
+              usernameError ? styles.textInputError : null,
+            ]}
             placeholder="Masukkan username atau email"
             placeholderTextColor="#aaa"
             value={username}
-            onChangeText={setUsername}
+            onChangeText={(v) => { setUsername(v); setUsernameError(""); }}
             autoCapitalize="none"
             keyboardType="email-address"
           />
+          {usernameError ? (
+            <Text style={styles.errorText}>{usernameError}</Text>
+          ) : null}
 
           {/* Password Field */}
           <Text style={[styles.label, { marginTop: 16 }]}>Password</Text>
           <TextInput
-            style={styles.textInput}
+            style={[
+              styles.textInput,
+              passwordError ? styles.textInputError : null,
+            ]}
             placeholder="Masukkan password"
             placeholderTextColor="#aaa"
             value={password}
-            onChangeText={setPassword}
+            onChangeText={(v) => { setPassword(v); setPasswordError(""); }}
             secureTextEntry
           />
+          {passwordError ? (
+            <Text style={styles.errorText}>{passwordError}</Text>
+          ) : null}
 
           {/* Login Button */}
           <TouchableOpacity
@@ -121,6 +148,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1a1a1a",
     backgroundColor: "transparent",
+  },
+  textInputError: {
+    borderBottomColor: "#e53935",
+  },
+  errorText: {
+    fontSize: 11,
+    color: "#e53935",
+    marginTop: 4,
   },
   loginButton: {
     backgroundColor: "#1a6ef5",
