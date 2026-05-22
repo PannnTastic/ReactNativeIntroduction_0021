@@ -1,87 +1,143 @@
-import { Link } from "expo-router";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import abra from "./abra";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 export default function Index() {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    if (username.trim()) {
+      router.push({
+        pathname: "./dashboard",
+        params: { username: username.trim() },
+      });
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>React Native Loh Yaaaa</Text>
-      <Link href="./form" style={styles.link}>ke halaman form</Link>
-      <Link href="./contoh" style={styles.link}>ke halaman contoh</Link>
-      <Link href="./abra" style={styles.link} >ke halaman abra</Link>
-      <Text style={styles.label}>ini form nama</Text>
-      <TextInput
-        placeholder="masukkan nama Anda"
-        placeholderTextColor="#999"
-        style={styles.textinput}
-      />
-      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.buttonText}>kirim</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.inner}>
+        {/* Header */}
+        <View style={styles.headerSection}>
+          <Text style={styles.title}>Selamat Datang</Text>
+          <Text style={styles.subtitle}>Silakan masuk ke akun Anda</Text>
+        </View>
+
+        {/* Card Form */}
+        <View style={styles.card}>
+          {/* Username Field */}
+          <Text style={styles.label}>Username / Email</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Masukkan username atau email"
+            placeholderTextColor="#aaa"
+            value={username}
+            onChangeText={setUsername}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
+
+          {/* Password Field */}
+          <Text style={[styles.label, { marginTop: 16 }]}>Password</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Masukkan password"
+            placeholderTextColor="#aaa"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+
+          {/* Login Button */}
+          <TouchableOpacity
+            style={styles.loginButton}
+            activeOpacity={0.8}
+            onPress={handleLogin}
+          >
+            <Text style={styles.loginButtonText}>Login</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    backgroundColor: "#f0f2f5",
+  },
+  inner: {
+    flex: 1,
     justifyContent: "center",
-    backgroundColor: "#f5f7fa",
-    gap: 16,
-    padding: 24,
+    paddingHorizontal: 24,
+  },
+  headerSection: {
+    marginBottom: 32,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    color: "#1a1a1a",
-    marginBottom: 8,
+    color: "#1a3a8f",
+    marginBottom: 6,
   },
-  link: {
-    color: "#007aff",
-    fontSize: 16,
-    textDecorationLine: "underline",
-    marginBottom: 8,
+  subtitle: {
+    fontSize: 14,
+    color: "#666",
+  },
+  card: {
+    backgroundColor: "#ffffff",
+    borderRadius: 16,
+    padding: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 5,
   },
   label: {
-    fontSize: 16,
-    color: "#666",
-    alignSelf: "center",
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#1a6ef5",
+    marginBottom: 6,
   },
-  textinput: {
-    borderWidth: 1,
-    borderColor: "#d1d5db",
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: 280,
+  textInput: {
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#1a6ef5",
+    paddingVertical: 8,
     fontSize: 16,
-    color: "#1f2937",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    color: "#1a1a1a",
+    backgroundColor: "transparent",
   },
-  button: {
-    backgroundColor: "#007aff",
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: 280,
+  loginButton: {
+    backgroundColor: "#1a6ef5",
+    borderRadius: 10,
+    paddingVertical: 14,
     alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#007aff",
+    marginTop: 28,
+    shadowColor: "#1a6ef5",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 4,
-    marginTop: 8,
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    elevation: 5,
   },
-  buttonText: {
+  loginButtonText: {
     color: "#ffffff",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "700",
+    letterSpacing: 0.5,
   },
 });
