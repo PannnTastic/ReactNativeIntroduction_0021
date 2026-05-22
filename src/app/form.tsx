@@ -1,27 +1,22 @@
-import { Link } from "expo-router";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import abra from "./abra";
+import { Link } from 'expo-router'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-export default function Index() {
+const form = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>React Native Loh Yaaaa</Text>
-      <Link href="./form" style={styles.link}>ke halaman form</Link>
-      <Link href="./contoh" style={styles.link}>ke halaman contoh</Link>
-      <Link href="./abra" style={styles.link} >ke halaman abra</Link>
-      <Text style={styles.label}>ini form nama</Text>
+      <Text style={styles.title}>ini halaman form loh yaaaa</Text>
       <TextInput
-        placeholder="masukkan nama Anda"
-        placeholderTextColor="#999"
-        style={styles.textinput}
-      />
+      placeholder='masukkan nama anda' 
+      placeholderTextColor="#999"
+      style={styles.textinput}
+      ></TextInput>
       <TouchableOpacity style={styles.button} activeOpacity={0.8}>
         <Text style={styles.buttonText}>kirim</Text>
       </TouchableOpacity>
+      <Link href="../" style={styles.link}>kembali ke halaman index</Link>
     </View>
-  );
+  )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -85,3 +80,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export default form
